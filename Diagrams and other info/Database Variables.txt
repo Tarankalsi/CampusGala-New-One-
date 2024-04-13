@@ -1,0 +1,85 @@
+User
+- userId
+- First Name
+- Last Name
+- phone number
+- passowrd
+
+Otp 
+- userId
+- OTP
+
+Personal Information
+- userId
+- email
+- DOB
+- Gender
+- Area Pincode
+- Street
+- Landmark
+- Town/City
+- State
+- Nationality
+
+EventApplication
+- ApplicationId
+- UserId
+- EventName
+- EventType
+- EventDescription
+- Status 
+
+Organisers
+- UserId
+- OrganizerId
+- OrganizerLogin
+- OrhanizerPassword  
+
+Event
+- EventId
+- OrganizerId
+- EventName
+- CollegeName
+- EventType
+- EventDescription
+- EventTermsAndCondition
+- EventDate
+- TicketPrice
+- TotalTickets
+- SoldTickets
+- RemainingTickets
+- Venue
+- PhoneNumber_1
+- PhoneNumber_2
+- Performers
+- Duration
+- StartTime
+
+Ticket
+- EventId
+- TicketId
+- userID
+- TicketPrice
+- PurchasedDate
+- QRCode
+- TicketType
+- CheckInStatus
+
+PaymentTransaction
+- TransactionId
+- UserID
+- EventID
+- Amount
+- PaymentMethod
+- TransactionDate
+- Status
+
+Admin
+- AdminId
+- Username
+- Password
+
+
+
+
+

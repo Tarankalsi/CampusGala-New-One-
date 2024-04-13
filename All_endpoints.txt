@@ -1,0 +1,16 @@
+Main Router -  /api/v1/
+
+userRouter 
+
+-- /user/signup
+-- /user/otp-verification
+-- /user/signin
+-- /user/event-application
+
+adminRouter
+
+-- /admin/signup
+-- /admin/signin
+-- /admin/organisers/applications
+-- /admin/organizer/:id/approved
+

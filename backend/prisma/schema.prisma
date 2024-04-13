@@ -1,0 +1,156 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//Define User Schema
+model User {
+  userId       Int                @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  mobileNumber String             @unique
+  password     String
+  verification String
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  otp          Otp[]
+  application  EventApplication[]
+  userDetails  personalDetails[]
+  organizer    Organizer[]
+  ticket       Ticket[]
+  transaction  Transaction[]
+}
+
+//OTP Schema
+model Otp {
+  userId    Int      @id
+  user      User     @relation(fields: [userId], references: [userId])
+  otp       String
+  status    String
+  createdAt DateTime @default(now())
+}
+
+//User Personal Details Schema
+model personalDetails {
+  userId      Int       @id
+  user        User      @relation(fields: [userId], references: [userId])
+  email       String?   @unique
+  dateOfBirth DateTime?
+  gender      String?
+  pincode     Int?
+  houseNumber String?
+  street      String?
+  landmark    String?
+  city        String?
+  nationality String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+//EventApplication Schema
+model EventApplication {
+  applicationId    Int       @id @default(autoincrement())
+  userId           Int
+  user             User      @relation(fields: [userId], references: [userId])
+  eventName        String
+  eventType        String
+  eventDescription String
+  mobileNumber     String
+  email            String
+  status           String
+  expectedAudience Int?
+  venue            String?
+  proposedDate     DateTime?
+  createdAt        DateTime  @default(now())
+}
+
+//Organizer Schema
+model Organizer {
+  organizerId       Int      @id @default(autoincrement())
+  userId            Int
+  user              User     @relation(fields: [userId], references: [userId])
+  organizerUsername String    @unique
+  organizerPassword String
+  mobileNumber      String
+  createdAt         DateTime @default(now())
+  event             Event[]
+}
+
+//Event Schema
+model Event {
+  eventId                Int           @id @default(autoincrement())
+  organizerId            Int
+  organizer              Organizer     @relation(fields: [organizerId], references: [organizerId])
+  eventName              String?
+  collegeName            String?
+  eventType              String?
+  eventDescription       String?
+  eventTermsAndCondition String?
+  eventDate              DateTime?
+  ticketPrice            Float?
+  totalTickets           Int?
+  soldTickets            Int?
+  remainingTickets       Int?
+  venue                  String?
+  phoneNumber1           Int?
+  phoneNumber2           Int?
+  duration               Float?
+  startTime              DateTime
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+  ticket                 Ticket[]
+  transaction            Transaction[]
+}
+
+//Ticket Schema
+model Ticket {
+  ticketId      Int           @id @default(autoincrement())
+  eventId       Int
+  event         Event         @relation(fields: [eventId], references: [eventId])
+  userId        Int
+  user          User          @relation(fields: [userId], references: [userId])
+  ticketPrice   Int
+  purchasedDate DateTime
+  qrCode        String        @unique
+  ticketType    String
+  checkInStatus String
+  createdAt     DateTime      @default(now())
+  transaction   Transaction[]
+}
+
+//Transaction Schema
+model Transaction {
+  transactionId       Int      @id @default(autoincrement())
+  ticketId            Int
+  ticket              Ticket   @relation(fields: [ticketId], references: [ticketId])
+  userId              Int
+  user                User     @relation(fields: [userId], references: [userId])
+  eventId             Int
+  event               Event    @relation(fields: [eventId], references: [eventId])
+  ticketAmount        Float
+  totalAmount         Float
+  paymentMethod       String
+  transactionDateTime DateTime
+  status              String
+  message             String
+  taxAmount           Float
+  createdAt           DateTime @default(now())
+}
+
+model Admin{
+  AdminId Int @id @default(autoincrement())
+  name String
+  username String @unique
+  password String
+  mobileNumber String 
+} 

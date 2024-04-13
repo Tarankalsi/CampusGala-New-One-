@@ -1,0 +1,11 @@
+Features of the website (endpoints)
+
+-authentification (signin , sign up ,otp-verification,logout)
+-home page(events list , all tickets purchased by the specific user , get users detail)
+-organising Event - new page (application to new event , verification of the number given by organiser via OTP , login page for organiser dashboard)
+
+-event management (only access by organiser) - (create event , update event , get event stats , delete event )
+
+-ticket -(pruchase ticket and qr code generate send it in the mail or sms provided by user, ticket cancellation process )
+
+-admin dashboard -(application pending , approve application and generate random password and mail it)
