@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const dotenv = require("dotenv");
 const { generateOtp, sendOtp } = require("../services/otpService");
 const { userAuthMiddleware } = require("../middleware/authMiddleware");
+const { getuser } = require("../controllers/userController");
 
 
 dotenv.config();
@@ -28,11 +29,13 @@ router.post('/signup', async (req, res) => {
         const { firstName, lastName, mobileNumber, password } = body;
         const verification = "pending";
 
-        const { success } = signupSchema.safeParse(body);
+        const { success ,error } = signupSchema.safeParse(body);
 
         if (!success) {
             return res.status(StatusCode.BAD_REQUEST).json({
-                message: "Invalid Inputs"
+                success: false,
+                message: "Invalid Inputs",
+                error : error.errors
             });
         }
 
@@ -41,22 +44,24 @@ router.post('/signup', async (req, res) => {
                 mobileNumber: body.mobileNumber
             }
         });
-        if (userExist && userExist.verification === "pending") {
-            const otp = await generateOtp(6, userExist);
-            const response = await sendOtp(userExist.mobileNumber, otp);
-            return res.json({
-                message: "Pending verification",
-                id: userExist.userId
-            });
-        }
-        if (userExist && userExist.verification === "verified") {
-            return res.status(StatusCode.NOT_FOUND).json({
-                message: "User already Exist"
-            });
+
+        if (userExist) {
+            if (userExist.verification === "pending") {
+                return res.status(StatusCode.CONFLICT).json({
+                    success: false,
+                    message: "User already exists and verification is pending"
+                });
+            } else {
+                return res.status(StatusCode.CONFLICT).json({
+                    success: false,
+                    message: "User already exists"
+                });
+            }
         }
 
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(password, salt);
+
 
         const user = await prisma.user.create({
             data: {
@@ -68,19 +73,30 @@ router.post('/signup', async (req, res) => {
             }
         });
 
+        await prisma.personalDetails.create({
+            data: {
+                userId: user.userId
+            }
+        })
+
+        const token = jwt.sign({ userId: user.userId }, JWT_SECRET_KEY)
+
 
         const generated_otp = await generateOtp(6, user);
         await sendOtp(user.mobileNumber, generated_otp);
 
 
         return res.status(StatusCode.OK).json({
+            success  : true,
             message: `User Created - OTP Sent to ${user.mobileNumber}`,
-            id: user.userId
+            token: token
         });
     } catch (error) {
         console.error(error);
         res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
-            message: "Internal Error"
+            success : false,
+            message: "Internal Error",
+            error : error.message
         });
     }
 });
@@ -88,7 +104,7 @@ router.post('/signup', async (req, res) => {
 
 const signinSchema = zod.object({
     mobileNumber: zod.string(),
-    password: zod.string().min(6),
+    password: zod.string(),
 });
 
 // Login User
@@ -117,6 +133,18 @@ router.post('/signin', async (req, res) => {
                 message: "User Not Exist"
             })
         }
+        if (user.verification === "pending") {
+            const token = jwt.sign({ userId: user.userId }, JWT_SECRET_KEY)
+            const otp = await generateOtp(6, user);
+            await sendOtp(user.mobileNumber, otp);
+
+            return res.status(StatusCode.OK).json({
+                success : true,
+                message: "Verification Pending  - OTP Send",
+                verification : user.verification,
+                token : token
+            })
+        }
 
         const userDetails = {
             userId: user.userId,
@@ -139,7 +167,8 @@ router.post('/signin', async (req, res) => {
         return res.status(StatusCode.OK).json({
             success: true,
             token: token,
-            user: userDetails
+            verification : user.verification,
+            message : "Sign in Successfully"
 
         });
 
@@ -151,13 +180,11 @@ router.post('/signin', async (req, res) => {
     }
 });
 
-router.post('/otp-verification', async (req, res) => {
+router.post('/otp-verification', userAuthMiddleware, async (req, res) => {
     try {
         const { otp } = req.body;
 
-        const userId = parseInt(req.headers.userid)
-
-
+        const userId = parseInt(req.userId)
 
         const user_response = await prisma.user.findUnique({
             where: {
@@ -170,11 +197,7 @@ router.post('/otp-verification', async (req, res) => {
                 userId: userId
             }
         })
-        console.log(otp_response.otp)
-        console.log(otp)
-        const token = jwt.sign({
-            userId: user_response.userId
-        }, JWT_SECRET_KEY)
+
 
         if (otp_response.status == "valid") {
             if (otp === otp_response.otp) {
@@ -187,59 +210,87 @@ router.post('/otp-verification', async (req, res) => {
                     }
                 })
                 return res.status(StatusCode.OK).json({
-                    status: "success",
-                    authToken: token
+                    success: true,
+                    message: "OTP - Verification Completed"
                 })
             } else {
                 return res.status(StatusCode.UNAUTHORIZED).json({
-                    status: "failed",
+                    success: false,
                     message: "Incorrect OTP"
                 })
             }
         } else if (otp_response.status === "expired") {
             return res.status(StatusCode.EXPIRED).json({
+                success: false,
                 message: "OTP is expired"
             })
         } else {
             return res.status(StatusCode.BAD_REQUEST).json({
+                success: false,
                 message: "Enter Valid OTP"
             })
         }
     } catch (error) {
         console.error(error);
         res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+            success: false,
             message: "Internal Error"
         });
     }
 
 });
- 
 
- 
+
+router.post('/otp-verification/resend-otp', userAuthMiddleware, async (req, res) => {
+    try {
+        const user = await getuser(req.userId)
+        const otp = await generateOtp(6, user)
+        await sendOtp(user.mobileNumber, otp)
+
+        return res.status(StatusCode.OK).json({
+            success: true,
+            message: `Resent Otp at ${user.mobileNumber}`,
+            otp: otp
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal Error"
+        });
+    }
+})
+
+
 
 const eventApplicationSchema = zod.object({
-     eventName: zod.string(),
+    eventName: zod.string(),
     eventDescription: zod.string(),
-    eventType : zod.string(),
+    eventType: zod.string(),
     mobileNumber: zod.string(),
     email: zod.string().email(),
     expectedAudience: zod.number(),
     venue: zod.string(),
-    
+    proposedDate: zod.date()
 });
+
 
 router.post('/event-application', userAuthMiddleware, async (req, res) => {
     try {
 
         const body = req.body
-       
-        const { success } = eventApplicationSchema.safeParse(body)
+        const proposedDate = new Date(body.proposedDate)
+
+        const { success } = eventApplicationSchema.safeParse({ ...body, proposedDate })
         console.log(success)
         if (!success) {
             return res.status(StatusCode.BAD_REQUEST).json({
+                success: false,
                 message: "zod validation failed"
             });
         }
+        console.log(body)
+        console.log(proposedDate)
 
         const application = await prisma.eventApplication.create({
             data: {
@@ -251,20 +302,22 @@ router.post('/event-application', userAuthMiddleware, async (req, res) => {
                 email: body.email,
                 expectedAudience: body.expectedAudience,
                 venue: body.venue,
-                status : "pending"
+                proposedDate: proposedDate,
+                status: "pending"
             }
         })
 
         return res.status(StatusCode.OK).json({
-            success : true,
+            success: true,
             message: "Your Application is Submitted",
-            application : application
+            application: application
         })
 
 
     } catch (error) {
         console.error(error);
         res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+            success: false,
             message: "Internal Error"
         });
     }
@@ -274,6 +327,198 @@ router.post('/event-application', userAuthMiddleware, async (req, res) => {
 
     //     }
     // })
+
+})
+
+router.get('/event-application', userAuthMiddleware, async (req, res) => {
+    try {
+        const applications = await prisma.eventApplication.findMany({
+            where: {
+                userId: req.userId
+            }
+        })
+
+        if (!applications) {
+            return res.status(StatusCode.OK).json({
+                success: false,
+                message: "No Application Exist"
+            })
+        }
+
+        return res.status(StatusCode.OK).json({
+            success: true,
+            applications: applications
+        })
+
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal Error"
+        });
+    }
+})
+
+
+router.get('/details', userAuthMiddleware, async (req, res) => {
+    try {
+        console.log(req.userId)
+
+        const user = await prisma.user.findUnique({
+            where: { userId: req.userId }
+            ,
+            select: {
+                firstName: true,
+                lastName: true,
+                mobileNumber: true,
+                userDetails: true
+            }
+        })
+
+        if (!user) {
+            return res.status(StatusCode.NOT_FOUND).json({
+                success: false,
+                message: "User Not Found"
+            })
+        }
+
+        return res.status(StatusCode.OK).json({
+            success: true,
+            user: user
+        })
+
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal Error"
+        });
+    }
+})
+
+
+const updateProfileSchema = zod.object({
+    email: zod.string().email().optional(),
+    dateOfBirth: zod.date().optional(),
+    gender: zod.string().optional(),
+    pincode: zod.number().optional(),
+    houseNumber: zod.string().optional(),
+    street: zod.string().optional(),
+    landmark: zod.string().optional(),
+    city: zod.string().optional(),
+    nationality: zod.string().optional(),
+})
+router.post('/update-profile', userAuthMiddleware, async (req, res) => {
+    try {
+        const body = req.body
+        if (body.dateOfBirth) {
+            body.dateOfBirth = new Date(body.dateOfBirth)
+        }
+
+        const { success } = updateProfileSchema.safeParse(body)
+
+        if (!success) {
+            return res.status(StatusCode.BAD_REQUEST).json({
+                success: false,
+                message: "zod validation failed"
+            })
+        }
+
+        await prisma.personalDetails.update({
+            where: {
+                userId: req.userId
+            },
+            data: body
+        })
+
+        return res.status(StatusCode.OK).json({
+            succcess: true,
+            message: "User Profile Updated"
+        })
+
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal Error"
+        });
+    }
+})
+
+router.get('/events', async (req, res) => {
+    try {
+        const events = await prisma.event.findMany()
+
+        if (!events) {
+            return res.status(StatusCode.NOT_FOUND).json({
+                success: false,
+                message: "Not Found any Event"
+            })
+        }
+
+        return res.status(StatusCode.OK).json({
+            success: true,
+            events: events
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal Error"
+        });
+    }
+})
+
+router.get('/events/:id', async (req, res) => {
+    try {
+        const eventId = parseInt(req.params.id)
+        const event = await prisma.event.findUnique({
+            where: {
+                eventId: eventId
+            }
+        })
+
+        if (!event) {
+            return res.status(StatusCode.NOT_FOUND).json({
+                success: false,
+                message: "Event Not Found"
+            })
+        }
+
+        return res.status(StatusCode.OK).json({
+            success: true,
+            event: event
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal Error"
+        });
+    }
+})
+
+router.post('/waste-delete', async (req, res) => {
+    try {
+
+
+        const org = await prisma.event.delete({
+           where:{
+            eventId : 11
+           }
+        })
+
+        return res.json({
+            message: 'updated'
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Internal Error"
+        });
+    }
+
 
 })
 module.exports = router;

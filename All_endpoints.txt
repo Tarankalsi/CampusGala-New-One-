@@ -5,12 +5,46 @@ userRouter
 -- /user/signup
 -- /user/otp-verification
 -- /user/signin
--- /user/event-application
+-- /user/event-application  (POST)  to submit application
+-- /user/event-application  (GET)  to get all submitted application by that user
+
+-- /user/details                  - get user Details by userId
+-- /user/update-profile         - update user profile 
+-- /user/events                - get all events 
+-- /user/event/:id             - get the  event by eventId
+
+
+
+ticketRouter
+-- /user/tickets                              - get all tickets purchased by user
+-- /user/ticket/purchase/:eventId             - purchase ticket  and generate and send qr to user nmobileNumber
+-- /user/ticket/check-in                      - check in ticket 
+-- /user/check-in/sign-in                     - enter eventCode to scan the qr for that event   
+
 
 adminRouter
 
 -- /admin/signup
 -- /admin/signin
 -- /admin/organisers/applications
--- /admin/organizer/:id/approved
+-- /admin/event-application/:id/approved                   (id refers to applicationId)
+-- /admin/event-application/:id/rejected                   (id refers to applicationId)
+-- /admin/organizer/:id/resend-credentials                 (id refers to organizerId)        
+
+organizer
+
+-- /organizer/signin
+-- /organizer/create-event                   - to create event  
+-- /organizer/create-event/upload-file        - upload file in cloudinary and get the cloudinary url
+-- /organizer/update-event                    - update event Details
+-- /organizer/event                           - fetch the event detail 
+
+
+
+Ticket 
+// Pending 
+-- /tickets/:ticketId              get ticket  details by id  (id refers tpo eventId)
+
+
+
 

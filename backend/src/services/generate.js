@@ -41,7 +41,30 @@ async function generateCredentials(name) {
     return { username, password };
 }
 
+async function generateEventCode(length) {
+    let code;
+    let attempts = 0;
+    const maxAttempts = 10; // Maximum number of attempts to generate a unique code
+
+    while (attempts < maxAttempts) {
+
+        code = generateRandomPassword(length) // Generate a random 8-character code
+        const existingEvent = await prisma.event.findFirst({
+            where: {
+                eventCode: code
+            }
+        });
+
+        if (!existingEvent) {
+            
+            return code;
+        }
+        attempts++;
+    }
+
+    return null;
+}
 
 module.exports = {
-    generateCredentials
+    generateCredentials, generateRandomNumber, generateRandomPassword, generateEventCode
 }

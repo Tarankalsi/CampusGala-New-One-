@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const twilio = require("twilio");
+const fs = require('fs');
 const { PrismaClient } = require('@prisma/client');
 
 
@@ -23,7 +24,7 @@ async function generateOtp(length, user) {
             OTP += digits[Math.floor(Math.random() * 10)];
         }
 
-        const otpExist = await prisma.otp.findFirst({
+        const otpExist = await prisma.otp.findUnique({
             where: {
                 userId: user.userId
             }
@@ -39,8 +40,6 @@ async function generateOtp(length, user) {
                     status: "valid"
                 }
             });
-            console.log("update_otp")
-            console.log(update_OTP)
         } else {
             const create_otp = await prisma.otp.create({
                 data: {
@@ -94,8 +93,9 @@ async function sendOtp(mobileNumber, otp) {
     }
 }
 
-async function sendLoginCredentials(username,password,mobileNumber) {
-    const messageBody = `Congratulations Your're assigning as an Admin of CampusGala
+
+async function sendLoginCredentials(username, password, mobileNumber, message) {
+    const messageBody = `Congratulations ${message}
      Login Credentials username : ${username} and password :${password}`;
 
     try {
@@ -111,6 +111,26 @@ async function sendLoginCredentials(username,password,mobileNumber) {
     }
 }
 
+const sendQrCode = async (messageBody, mobileNumber, url) =>{
+    try {
+
+        // const base64Data = fs.readFileSync(qrCodePath , {encoding : 'base64'} )
+        // const mediaUrl = `data:image/png;base64,${base64Data}`
+
+        const response = await client.messages.create({
+            to: mobileNumber ,
+            from : twilioNumber,
+            mediaUrl  : url,
+            body : messageBody
+        })
+        
+        return response
+    } catch (error) {
+        console.error('Error sending QR code via Twilio:', error);
+        throw error;
+    }
+}
 
 
-module.exports = { generateOtp, sendOtp , sendLoginCredentials};
+
+module.exports = { generateOtp, sendOtp, sendLoginCredentials , sendQrCode};

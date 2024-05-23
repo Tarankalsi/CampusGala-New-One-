@@ -8,7 +8,8 @@ const secretConstants = Object.freeze({
     UNAUTHORIZED: 401,
     INTERNAL_SERVER_ERROR: 500,
     EXPIRED : 410,
-    CONFLICT : 409
+    CONFLICT : 409,
+    NOT_ALLOWED : 405
 });
 
 module.exports = secretConstants;

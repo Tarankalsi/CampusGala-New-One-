@@ -15,20 +15,21 @@ datasource db {
 
 //Define User Schema
 model User {
-  userId       Int                @id @default(autoincrement())
-  firstName    String
-  lastName     String
-  mobileNumber String             @unique
-  password     String
-  verification String
-  createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
-  otp          Otp[]
-  application  EventApplication[]
-  userDetails  personalDetails[]
-  organizer    Organizer[]
-  ticket       Ticket[]
-  transaction  Transaction[]
+  userId                   Int                        @id @default(autoincrement())
+  firstName                String
+  lastName                 String
+  mobileNumber             String                     @unique
+  password                 String
+  verification             String
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime                   @updatedAt
+  otp                      Otp[]
+  application              EventApplication[]
+  userDetails              personalDetails[]
+  organizer                Organizer[]
+  ticket                   Ticket[]
+  transaction              Transaction[]
+  archivedEventApplication ArchivedEventApplication[]
 }
 
 //OTP Schema
@@ -60,7 +61,7 @@ model personalDetails {
 //EventApplication Schema
 model EventApplication {
   applicationId    Int       @id @default(autoincrement())
-  userId           Int
+  userId           Int        
   user             User      @relation(fields: [userId], references: [userId])
   eventName        String
   eventType        String
@@ -79,7 +80,7 @@ model Organizer {
   organizerId       Int      @id @default(autoincrement())
   userId            Int
   user              User     @relation(fields: [userId], references: [userId])
-  organizerUsername String    @unique
+  organizerUsername String   @unique
   organizerPassword String
   mobileNumber      String
   createdAt         DateTime @default(now())
@@ -91,21 +92,24 @@ model Event {
   eventId                Int           @id @default(autoincrement())
   organizerId            Int
   organizer              Organizer     @relation(fields: [organizerId], references: [organizerId])
-  eventName              String?
-  collegeName            String?
-  eventType              String?
-  eventDescription       String?
+  eventName              String
+  eventCode              String?        @unique 
+  avatar                 String            @default("")  //cloudinary url
+  coverImage             String         @default("")  //cloudinary url  
+  collegeName            String
+  eventType              String
+  eventDescription       String
   eventTermsAndCondition String?
-  eventDate              DateTime?
-  ticketPrice            Float?
+  eventDate              DateTime
+  ticketPrice            Float
   totalTickets           Int?
-  soldTickets            Int?
+  soldTickets            Int?    @default(0)
   remainingTickets       Int?
-  venue                  String?
-  phoneNumber1           Int?
-  phoneNumber2           Int?
+  venue                  String
+  phoneNumber1           String
+  phoneNumber2           String?
   duration               Float?
-  startTime              DateTime
+  startTime              String?
   createdAt              DateTime      @default(now())
   updatedAt              DateTime      @updatedAt
   ticket                 Ticket[]
@@ -114,16 +118,18 @@ model Event {
 
 //Ticket Schema
 model Ticket {
-  ticketId      Int           @id @default(autoincrement())
+  ticketId      String           @id @default(cuid())
   eventId       Int
   event         Event         @relation(fields: [eventId], references: [eventId])
   userId        Int
   user          User          @relation(fields: [userId], references: [userId])
-  ticketPrice   Int
-  purchasedDate DateTime
-  qrCode        String        @unique
-  ticketType    String
-  checkInStatus String
+  ticketPrice   Int            
+  qrCodeId        String       @default("")  //cloudinary puclic_id of qrCode 
+  qrCodeUrl        String       @default("")  //cloudinary url of qrCode 
+  mobileNumber  String           
+  purchasedDate DateTime      @default(now())
+  ticketType    String        @default("general")
+  checkInStatus String        @default("")
   createdAt     DateTime      @default(now())
   transaction   Transaction[]
 }
@@ -131,7 +137,7 @@ model Ticket {
 //Transaction Schema
 model Transaction {
   transactionId       Int      @id @default(autoincrement())
-  ticketId            Int
+  ticketId            String
   ticket              Ticket   @relation(fields: [ticketId], references: [ticketId])
   userId              Int
   user                User     @relation(fields: [userId], references: [userId])
@@ -147,10 +153,28 @@ model Transaction {
   createdAt           DateTime @default(now())
 }
 
-model Admin{
-  AdminId Int @id @default(autoincrement())
-  name String
-  username String @unique
-  password String
-  mobileNumber String 
-} 
+model Admin {
+  adminId      Int    @id @default(autoincrement())
+  name         String
+  username     String @unique
+  password     String
+  mobileNumber String
+  position     String
+}
+
+//Archived Database
+model ArchivedEventApplication {
+  archiveApplicationId Int       @id @default(autoincrement())
+  userId               Int
+  user                 User      @relation(fields: [userId], references: [userId])
+  eventName            String
+  eventType            String
+  eventDescription     String
+  mobileNumber         String
+  email                String
+  status               String
+  expectedAudience     Int?
+  venue                String?
+  proposedDate         DateTime?
+  createdAt            DateTime  @default(now())
+}

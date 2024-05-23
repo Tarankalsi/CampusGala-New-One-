@@ -1,0 +1,8 @@
+DATABASE_URL="postgresql://CampusGala_owner:nWklMVY2qgS5@ep-bold-dream-a1t8erxl-pooler.ap-southeast-1.aws.neon.tech/CampusGala?sslmode=require"
+
+accountSid = "AC7221666e8cb1ba5aff63862797be8b45"
+authToken = "68fc1cec9ff7754f455be863aeaa368c"
+twilioNumber = "+16592014699"
+
+JWT_SECRET_KEY = "goodluck"
+JWT_SECRET_KEY_ADMIN = "bestofluck"
