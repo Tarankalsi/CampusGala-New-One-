@@ -9,9 +9,11 @@ CampusGala is an innovative web platform designed to streamline the process of t
   - Normal Website User: Browse and purchase tickets for various events.
   - Admin : Approve or reject event applications.
    
-**Event Organizer:** Manage event, including ticket sales.
+**Event Organizer:**
+  -  Manage event, including ticket sales.
 
 **Ticketing System:** 
   - QR Code Ticket Generation: Generate QR code tickets and send QR code tickets directly to users' mobile phones for easy access and entry.
     
-**Backend Structure:** Robust system with 28 endpoints for various functionalities.
+**Backend Structure:** 
+  - Robust system with 28 endpoints for various functionalities.
