@@ -2,6 +2,7 @@
 CampusGala is an innovative web platform designed to streamline the process of ticketing for college festivals. This comprehensive website caters to the diverse needs of different user roles, ensuring a seamless and efficient experience for all participants involved in college events
 
 **Key Features**
+
 **User Authentication:** 
   - Secure login with OTP and password authentication.
     
