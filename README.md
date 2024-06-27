@@ -3,18 +3,18 @@ CampusGala is an innovative web platform designed to streamline the process of t
 
 **Key Features**
 
-1. **User Authentication:** 
-  - Secure login with OTP and password authentication.
+**1. User Authentication:** 
+    - Secure login with OTP and password authentication.
     
-2. **User Roles:** 
-  - Normal Website User: Browse and purchase tickets for various events.
-  - Admin : Approve or reject event applications.
+**2. User Roles:** 
+    - Normal Website User: Browse and purchase tickets for various events.
+    - Admin : Approve or reject event applications.
    
-3. **Event Organizer:**
-  -  Manage event, including ticket sales.
+**3. Event Organizer:**
+    -  Manage event, including ticket sales.
 
-4. **Ticketing System:** 
-  - QR Code Ticket Generation: Generate QR code tickets and send QR code tickets directly to users' mobile phones for easy access and entry.
+**4. Ticketing System:** 
+    - QR Code Ticket Generation: Generate QR code tickets and send QR code tickets directly to users' mobile phones for easy access and entry.
     
-5. **Backend Structure:** 
-  - Robust system with 28 endpoints for various functionalities.
+**5. Backend Structure:** 
+    - Robust system with 28 endpoints for various functionalities.
