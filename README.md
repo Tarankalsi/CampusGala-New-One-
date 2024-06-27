@@ -13,5 +13,5 @@ CampusGala is an innovative web platform designed to streamline the process of t
 
 **Ticketing System:** 
   - QR Code Ticket Generation: Generate QR code tickets and send QR code tickets directly to users' mobile phones for easy access and entry.
-  - 
+    
 **Backend Structure:** Robust system with 28 endpoints for various functionalities.
