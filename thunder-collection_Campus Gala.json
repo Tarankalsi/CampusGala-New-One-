@@ -1,0 +1,575 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Campus Gala",
+    "collectionId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+    "dateExported": "2024-05-23T19:36:37.471Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "User",
+            "containerId": "",
+            "created": "2024-04-03T08:29:13.397Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "fb31918f-fd92-4a82-b9c4-e14bd1e49713",
+            "name": "Admin",
+            "containerId": "",
+            "created": "2024-04-12T15:08:42.933Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "13661fec-9fcf-4130-beab-f2cdfcfcea1c",
+            "name": "Organizer",
+            "containerId": "",
+            "created": "2024-04-17T13:22:06.175Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "eb7105ac-262b-428c-a70d-1eb13516ae57",
+            "name": "Others",
+            "containerId": "",
+            "created": "2024-04-25T11:51:28.347Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "b9fe3ed6-52aa-4bd9-8550-739115c847bc",
+            "name": "Ticket",
+            "containerId": "",
+            "created": "2024-05-05T19:39:33.698Z",
+            "sortNum": 50000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "dc0c8f3b-a0f0-4bce-b15b-71dc92ab1abb",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "Signup",
+            "url": "http://localhost:3000/api/v1/user/signup",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-04-03T08:29:25.205Z",
+            "modified": "2024-05-14T19:09:37.947Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"firstName\" : \"Taran\",\n  \"lastName\" : \"Kalsi\",\n  \"mobileNumber\" : \"+918287193995\",\n  \"password\" : \"kalsi1234\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "9d7b8c2c-c168-4ca0-be1a-dea04fdc7e29",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "otp-verification",
+            "url": "http://localhost:3000/api/v1/user/otp-verification",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-04-03T12:36:07.580Z",
+            "modified": "2024-05-15T14:34:58.821Z",
+            "headers": [
+                {
+                    "name": "userId",
+                    "value": "1"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxNTc4MzY1NH0.Gb1KBNLGybJrSYr73dOa3nio90I7ung3YUHSlnEwxc8"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"otp\" : \"328213\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "e809fc3b-fdfd-4cf3-91cf-630267d3a7f1",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "Sign in",
+            "url": "http://localhost:3000/api/v1/user/signin",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-04-12T14:34:56.596Z",
+            "modified": "2024-05-15T13:38:54.494Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"mobileNumber\" : \"+918287193995\",\n  \"password\" : \"12345678\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "02022255-ba57-45f1-9ece-75b18e5206a5",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "fb31918f-fd92-4a82-b9c4-e14bd1e49713",
+            "name": "Admin Signup",
+            "url": "http://localhost:3000/api/v1/admin/signup",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-04-12T15:18:18.237Z",
+            "modified": "2024-05-15T12:12:03.400Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbklkIjo1LCJpYXQiOjE3MTMzNjQyMjd9.Klb2KG1XEC0uola-J7tP3zcc8tsLALwWH0ayRnkLQHM"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\" : \"Admin\",\n  \"username\" : \"admin1234\",\n  \"password\" : \"admin1234\",\n  \"mobileNumber\" : \"+918287193995\",\n  \"position\" : \"administrator\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "21dd50d0-a620-4ddf-92b9-57652335f887",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "fb31918f-fd92-4a82-b9c4-e14bd1e49713",
+            "name": "Admin Signin",
+            "url": "http://localhost:3000/api/v1/admin/signin",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-04-12T19:35:22.966Z",
+            "modified": "2024-05-15T12:16:12.949Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"admin1234\",\n  \"password\" : \"admin1234\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "e570409f-0f2c-435d-ad9c-76aa965bdd8a",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "Event Application",
+            "url": "http://localhost:3000/api/v1/user/event-application",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2024-04-13T06:48:06.552Z",
+            "modified": "2024-04-17T14:08:14.326Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMjk5MzA2N30.RwEZLwycdevewbXafjk2MuE-_DnNv_6X0Yy4GmgkpUk"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"eventName\" : \"pratibimb\",\n  \"eventDescription\" : \"IITM college Fest\",\n  \"eventType\" : \"Annual Fest\",\n  \"mobileNumber\": \"+918287193995\",\n  \"email\" : \"pratibimb@gmail.com\",\n  \"expectedAudience\" : 800,\n  \"venue\" : \"Delhi Haat\",\n  \"proposedDate\" : \"2024-05-30\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "80842440-df02-46e6-9263-a0712a90a068",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "fb31918f-fd92-4a82-b9c4-e14bd1e49713",
+            "name": "Get All applications",
+            "url": "http://localhost:3000/api/v1/admin/event-application/applications",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-04-13T07:52:55.200Z",
+            "modified": "2024-04-17T14:08:54.452Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbklkIjo1LCJpYXQiOjE3MTMzNjI5MDZ9.E_r68AakjayE1s7RQbxfuzfqtVB3zsDoCnILp0WTSBc"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ceb82b37-80fd-4812-8579-3db19954107a",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "fb31918f-fd92-4a82-b9c4-e14bd1e49713",
+            "name": "Approved application & send login credentials",
+            "url": "http://localhost:3000/api/v1/admin/event-application/4/approved",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2024-04-13T08:15:28.131Z",
+            "modified": "2024-05-22T13:14:50.591Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbklkIjoxLCJpYXQiOjE3MTYzODM1NDl9.-_qbpUFfboA6Nhz2wp99qiSt6po02XfW3K3oKgRHzOQ"
+                }
+            ]
+        },
+        {
+            "_id": "cd2d82b7-d6cb-43e8-bfa6-d4674abd8555",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "Resend Otp",
+            "url": "http://localhost:3000/api/v1/user/otp-verification/resend-otp",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2024-04-16T11:17:36.170Z",
+            "modified": "2024-05-01T13:28:35.585Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTcxNDU2OTk4Nn0.FdOBkR7rwRqiTdE9U99XnacarWBs1JyfaV5T93Iou-I"
+                }
+            ]
+        },
+        {
+            "_id": "f6c02efe-9ddc-42ef-8f49-060433c2395a",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "Get applied applications for login user",
+            "url": "http://localhost:3000/api/v1/user/event-application",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-04-17T09:56:24.189Z",
+            "modified": "2024-04-17T09:56:49.434Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxMjk5MzA2N30.RwEZLwycdevewbXafjk2MuE-_DnNv_6X0Yy4GmgkpUk"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "409b5b84-4c5f-49b3-9918-7e0d9e4208a1",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "fb31918f-fd92-4a82-b9c4-e14bd1e49713",
+            "name": "resent Login Credentials",
+            "url": "http://localhost:3000/api/v1/admin/organizer/1/resend-credentials",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2024-04-17T11:07:35.999Z",
+            "modified": "2024-05-15T12:17:30.524Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbklkIjoxLCJpYXQiOjE3MTU3NzUzNzJ9.xE7gjurUXNtkaqOZbxTmqrfscxT9Zt7q7v6g-BNPXGQ"
+                }
+            ]
+        },
+        {
+            "_id": "323ef7c0-e200-4cc9-b6c3-c830c5b67e2a",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "fb31918f-fd92-4a82-b9c4-e14bd1e49713",
+            "name": "Reject Application",
+            "url": "http://localhost:3000/api/v1/admin/event-application/5/rejected",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2024-04-17T12:26:19.004Z",
+            "modified": "2024-04-17T14:12:33.226Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbklkIjoyLCJpYXQiOjE3MTMzNTY4MjZ9.RO2LHH3lHuAfX75wk_PjHDkfL5v8Kemrk7UaBgkHLVg"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8a0e5ec3-edf0-4e05-a5fa-3a940f48bb1a",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "13661fec-9fcf-4130-beab-f2cdfcfcea1c",
+            "name": "Signin",
+            "url": "http://localhost:3000/api/v1/organizer/signin",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2024-04-17T13:22:14.118Z",
+            "modified": "2024-05-23T09:25:42.663Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\" : \"unknownevent8670\",\n  \"password\" : \"FR3cpYF7\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "1af3a8e6-d0ea-455e-8d00-56533dd624a0",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "13661fec-9fcf-4130-beab-f2cdfcfcea1c",
+            "name": "Create event",
+            "url": "http://localhost:3000/api/v1/organizer/create-event",
+            "method": "POST",
+            "sortNum": 160000,
+            "created": "2024-04-19T13:58:12.833Z",
+            "modified": "2024-05-23T09:25:56.025Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6ZXJJZCI6MSwiaWF0IjoxNzE2NDU2MzQyfQ.WG03lEB4BsFGSP87BiTgYRZYzkV-q_v4-0zY3KGO_lU"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"eventName\" : \"agaaz\",\n   \"avatar\" :  \"http://res.cloudinary.com/daygfelat/image/upload/v1714046538/ig38ui58knjeqy0qkfhy.jpg\",\n   \"coverImage\" : \"http://res.cloudinary.com/daygfelat/image/upload/v1714046540/yqcgb3xjzqks5nauzglf.jpg\",\n   \"collegeName\" : \"IIT\",\n   \"eventType\" : \"Annual Fest\",\n   \"eventDescription\" : \"It is a annual fest of IIT College\",\n   \"eventTermsAndCondition\" : \"Bring your Id Card along for entry purpose\",\n   \"eventDate\" : \"2024-06-20\",\n   \"ticketPrice\" : 399,\n   \"totalTickets\" : 500,\n    \"venue\" : \"Dilli Haat\",\n    \"phoneNumber1\" : \"+918368419670\",\n    \"duration\" : 4,\n    \"startTime\" : \"6 PM\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "0319f600-8237-4449-8cf5-1946e3531934",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "eb7105ac-262b-428c-a70d-1eb13516ae57",
+            "name": "Upload files to create event",
+            "url": "http://localhost:3000/api/v1/organizer/create-event/upload-file",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2024-04-25T11:51:38.761Z",
+            "modified": "2024-05-22T15:26:44.962Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6ZXJJZCI6MiwiaWF0IjoxNzE2MzkxNTg2fQ.tmAksvWlp2K58S7wGLm--cWP1QCw3X4NGC2U6AlrZJI"
+                }
+            ],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [],
+                "files": [
+                    {
+                        "name": "avatar",
+                        "value": "e:\\taran\\photos edited\\3.jpg"
+                    },
+                    {
+                        "name": "coverImage",
+                        "value": "e:\\taran\\photos edited\\IMG_3698.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "39e79ac2-b11c-471c-bba5-33374cda93df",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "13661fec-9fcf-4130-beab-f2cdfcfcea1c",
+            "name": "Update Event",
+            "url": "http://localhost:3000/api/v1/organizer/update-event",
+            "method": "POST",
+            "sortNum": 190000,
+            "created": "2024-04-25T14:00:41.803Z",
+            "modified": "2024-04-25T14:15:12.163Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6ZXJJZCI6MywiaWF0IjoxNzEzNTM1MDczfQ.PPJywK1NdUDXxj2Jb6FDXvs9248pzkFRl3MIcuMraiA"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"eventName\" : \"Agaaz\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "43d6d841-1ea9-420e-a092-03912826564c",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "get user details",
+            "url": "http://localhost:3000/api/v1/user/details",
+            "method": "GET",
+            "sortNum": 200000,
+            "created": "2024-05-01T12:45:25.461Z",
+            "modified": "2024-05-17T14:00:03.550Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxNTk1NDM5M30.4CaUsboGM6juzSA_3U5OSJIsPBRfqKWZn7XvijCe1ww"
+                }
+            ]
+        },
+        {
+            "_id": "ef2856f6-3a7f-42c7-9bbf-f8929e804685",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "User Profile Update",
+            "url": "http://localhost:3000/api/v1/user/update-profile",
+            "method": "POST",
+            "sortNum": 210000,
+            "created": "2024-05-02T11:04:35.377Z",
+            "modified": "2024-05-02T11:06:58.993Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTcxNDU3MTc1Mn0.mOS0Kz9aF8hkZZ_WPRvKwTrYFbF-D6KXzzUVFepSo1w"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{ \n  \"email\" : \"taranjeet@gmail.com\",\n  \"dateOfBirth\" : \"2003-03-31\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "f7f26fd6-6143-4416-9cb7-1f73245145c2",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "Fetch all Events",
+            "url": "http://localhost:3000/api/v1/user/events",
+            "method": "GET",
+            "sortNum": 220000,
+            "created": "2024-05-02T11:14:00.043Z",
+            "modified": "2024-05-02T11:14:22.534Z",
+            "headers": []
+        },
+        {
+            "_id": "690ca00a-a9f9-4627-b13a-a29b93b4ac19",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "3debb6f9-cd38-421a-a449-05fc075c10d8",
+            "name": "specific event detail",
+            "url": "http://localhost:3000/api/v1/user/events/8",
+            "method": "GET",
+            "sortNum": 230000,
+            "created": "2024-05-02T11:22:59.737Z",
+            "modified": "2024-05-23T16:57:43.898Z",
+            "headers": []
+        },
+        {
+            "_id": "ae10233f-7fc4-4320-8ae3-a212d7df0644",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "b9fe3ed6-52aa-4bd9-8550-739115c847bc",
+            "name": "Purchase Ticket",
+            "url": "http://localhost:3000/api/v1/user/ticket/purchase/5",
+            "method": "POST",
+            "sortNum": 240000,
+            "created": "2024-05-05T19:40:05.073Z",
+            "modified": "2024-05-05T20:05:46.074Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTcxNDkzOTQ4MX0.5wYjwcc-W7YqwxBwL5-5Tf1U8_PaZUkQnTlmhBM_ryI"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"mobileNumber\" : \"+918287193995\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a2808201-de25-43d7-b397-2fc6d84b5ab9",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "b9fe3ed6-52aa-4bd9-8550-739115c847bc",
+            "name": "Check In",
+            "url": "http://localhost:3000/api/v1/user/ticket/check-in",
+            "method": "POST",
+            "sortNum": 250000,
+            "created": "2024-05-05T20:50:25.826Z",
+            "modified": "2024-05-06T15:43:48.177Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJldmVudElkIjo1LCJpYXQiOjE3MTUwMTAyMTh9.98DczM9YnqMzO_fhiDyPwh07L6TsJExJex_WNdX47Xk"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"ticketId\" : \"clvv4s1fz00017ijfa4ozxncy\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a8f99a93-7cdb-4d31-8418-c3c6fff2d7c9",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "13661fec-9fcf-4130-beab-f2cdfcfcea1c",
+            "name": "generate event code",
+            "url": "http://localhost:3000/api/v1/organizer/generate-event-code",
+            "method": "POST",
+            "sortNum": 260000,
+            "created": "2024-05-06T15:02:12.305Z",
+            "modified": "2024-05-23T10:17:43.280Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6ZXJJZCI6MSwiaWF0IjoxNzE2NDU2MzQyfQ.WG03lEB4BsFGSP87BiTgYRZYzkV-q_v4-0zY3KGO_lU"
+                }
+            ]
+        },
+        {
+            "_id": "2c704ee1-64da-4231-b007-6f5d112fab92",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "b9fe3ed6-52aa-4bd9-8550-739115c847bc",
+            "name": "sign in for check in tickets",
+            "url": "http://localhost:3000/api/v1/user/ticket/check-in/signin",
+            "method": "POST",
+            "sortNum": 270000,
+            "created": "2024-05-06T15:35:32.466Z",
+            "modified": "2024-05-06T15:43:38.805Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"eventCode\" : \"x2MW5B36\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "5d15e3ea-7fcd-4739-a46b-089733788fb2",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "b9fe3ed6-52aa-4bd9-8550-739115c847bc",
+            "name": "Fetch all ticket of a specific user",
+            "url": "http://localhost:3000/api/v1/user/ticket",
+            "method": "GET",
+            "sortNum": 290000,
+            "created": "2024-05-06T16:05:21.606Z",
+            "modified": "2024-05-06T16:05:56.909Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTcxNDkzOTQ4MX0.5wYjwcc-W7YqwxBwL5-5Tf1U8_PaZUkQnTlmhBM_ryI"
+                }
+            ]
+        },
+        {
+            "_id": "01525c48-d2fc-446b-bc87-5b9e0615046b",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "b9fe3ed6-52aa-4bd9-8550-739115c847bc",
+            "name": "Get specific ticket of user by ticketId",
+            "url": "http://localhost:3000/api/v1/user/ticket/clvtytapn0001bzdhofav4a1f",
+            "method": "GET",
+            "sortNum": 300000,
+            "created": "2024-05-06T16:07:26.143Z",
+            "modified": "2024-05-06T16:11:27.194Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTcxNDkzOTQ4MX0.5wYjwcc-W7YqwxBwL5-5Tf1U8_PaZUkQnTlmhBM_ryI"
+                }
+            ]
+        },
+        {
+            "_id": "17bcd147-cd48-4807-b118-2e159b9234ad",
+            "colId": "9b83c869-1176-4553-a2d2-2968d3976ec8",
+            "containerId": "13661fec-9fcf-4130-beab-f2cdfcfcea1c",
+            "name": "Fetch event",
+            "url": "http://localhost:3000/api/v1/organizer/event",
+            "method": "GET",
+            "sortNum": 310000,
+            "created": "2024-05-23T09:46:15.666Z",
+            "modified": "2024-05-23T09:47:03.712Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6ZXJJZCI6MSwiaWF0IjoxNzE2NDU2MzQyfQ.WG03lEB4BsFGSP87BiTgYRZYzkV-q_v4-0zY3KGO_lU"
+                }
+            ]
+        }
+    ],
+    "ref": "E7r6NhzY5t1p440we-ivzp1u_KjAxmiR4mDvQFe0q1517tt77k6tZaBOB2-6Ws4ZC6SKZuFXEIHp_axJ1pwuWQ"
+}

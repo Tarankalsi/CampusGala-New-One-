@@ -152,43 +152,7 @@ function Modal({ requestAction, color, label }) {
     );
 }
 
-// function SuccessModal({ success, status }) {
-//     const [isModalOpen, setIsModalOpen] = useState(false);
 
-//     const closeModal = () => {
-//         setIsModalOpen(false);
-//     }
-//     return (
-//         <>
-//             {success && (
-//                 <div
-//                     id="popup-modal"
-//                     tabIndex="-1"
-//                     className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-gray-800 bg-opacity-50"
-//                 >
-//                     <div className="relative p-4 w-full max-w-md max-h-full">
-//                         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-//                             <button
-//                                 type="button"
-//                                 className="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-//                                 onClick={closeModal}
-//                             >
-
-//                             </button>
-//                             <div className="p-4 md:p-5 text-center">
-
-//                                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Application {status === "approve" ? "Approved" : "Rejected"} </h3>
-//                                 <h5 className='mb-5 text-lg font-normal text-gray-500 dark:text-gray-400'>{status === "approve" && "Organizer and username password sends to"}</h5>
-
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             )}
-//         </>
-
-//     )
-// }
 
 
 function ApproveButton({ label, openModal }) {
