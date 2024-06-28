@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import Spinner from '../../components/ui/Spinner';
 import axios from 'axios';
+import { BACKEND_URL } from '../../../config';
+
 
 
 function AdminLogin() {
@@ -25,7 +27,7 @@ function AdminLogin() {
             setError("");
 
 
-            const response = await axios.post('http://localhost:3000/api/v1/admin/signin', {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/admin/signin`, {
                 username,
                 password
             });

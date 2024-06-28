@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil'
 import { Link, useNavigate } from 'react-router-dom'
 import useAuthentication from '../../hooks/useAuthentication '
 import axios from 'axios'
+import { BACKEND_URL } from '../../../config'
 
 
 function ApplicationForm() {
@@ -56,7 +57,7 @@ function ApplicationForm() {
       
         try {
 
-            await axios.post('http://localhost:3000/api/v1/user/event-application', {
+            await axios.post(`${BACKEND_URL}/api/v1/user/event-application`, {
                 eventName : formData.eventName,
                 eventDescription : formData.eventDescription,
                 eventType : formData.eventType,

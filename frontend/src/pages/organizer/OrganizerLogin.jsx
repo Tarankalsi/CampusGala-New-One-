@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../components/ui/Spinner';
+import { BACKEND_URL } from '../../../config';
 
 function OrganizerLogin() {
 
@@ -27,7 +28,7 @@ function OrganizerLogin() {
             setError("");
 
 
-            const response = await axios.post('http://localhost:3000/api/v1/organizer/signin', {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/organizer/signin`, {
                 username,
                 password
             });

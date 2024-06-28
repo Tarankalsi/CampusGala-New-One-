@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil'
 import { eventAtom } from '../../store/atoms/organizerAtom'
 import axios from 'axios'
 import Spinner from '../../components/ui/Spinner'
+import { BACKEND_URL } from '../../../config'
 
 function OrganizerDashboard() {
     const [loading, setLoading] = useState(false)
@@ -16,7 +17,7 @@ function OrganizerDashboard() {
         setLoading(true)
         try {
             const fetchEvent = async () => {
-                const response = await axios.get('http://localhost:3000/api/v1/organizer/event', {
+                const response = await axios.get(`${BACKEND_URL}/api/v1/organizer/event`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('organizerToken')}`
                     }

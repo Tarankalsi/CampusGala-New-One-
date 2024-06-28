@@ -6,6 +6,7 @@ import Spinner from '../../components/ui/Spinner';
 import { useRecoilState } from 'recoil';
 import { applicationAtom } from '../../store/atoms/adminAtoms';
 import axios from 'axios';
+import { BACKEND_URL } from '../../../config';
 
 
 function Dashboard() {
@@ -17,7 +18,7 @@ function Dashboard() {
     const fetchApplication = async () =>{
       setLoading(true)
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/admin/event-application/applications',{
+        const response = await axios.get(`${BACKEND_URL}/api/v1/admin/event-application/applications`,{
           headers : {
             Authorization : `Bearer ${localStorage.getItem('adminToken')}`
           }

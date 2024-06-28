@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { formatDate } from '../../../utils/formatDate'
 import axios from 'axios'
+import { BACKEND_URL } from '../../../../config'
 
 function TableRow({ application }) {
     const [loading, setLoading] = useState(false)
@@ -9,8 +10,8 @@ function TableRow({ application }) {
     const approveHandle = async () => {
         setLoading(true)
         try {
-            console.log(`http://localhost:3000/api/v1/admin/event-application/${application.applicationId}/approved`)
-            await axios.post(`http://localhost:3000/api/v1/admin/event-application/${application.applicationId}/approved`, {},
+            
+            await axios.post(`${BACKEND_URL}/api/v1/admin/event-application/${application.applicationId}/approved`, {},
             {
              headers: {
                 Authorization: `Bearer ${localStorage.getItem('adminToken')}`,

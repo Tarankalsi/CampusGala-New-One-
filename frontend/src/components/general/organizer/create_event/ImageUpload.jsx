@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { coverImageAtom, coverImageUrlAtom, profileImageAtom, profileImageUrlAtom } from '../../../../store/atoms/organizerAtom'
 import axios from 'axios'
 import Spinner from '../../../ui/Spinner'
+import { BACKEND_URL } from '../../../../../config'
 
 function ImageUpload() {
     const profile = useRecoilValue(profileImageAtom)
@@ -30,7 +31,7 @@ function ImageUpload() {
         formData.append("coverImage", cover);
 
         try {
-            const response = await axios.post('http://localhost:3000/api/v1/organizer/create-event/upload-file', formData, {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/organizer/create-event/upload-file`, formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('organizerToken')}`
                 },

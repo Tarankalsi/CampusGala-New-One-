@@ -13,6 +13,7 @@ import { mobileNumberAtom, passwordAtom } from '../../store/atoms/userAtom';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../../../config';
 
 function SignIn() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function SignIn() {
         return;
       }
 
-      const response = await axios.post('http://localhost:3000/api/v1/user/signin', {
+      const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, {
         mobileNumber,
         password
       });

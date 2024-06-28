@@ -7,6 +7,7 @@ import { faAnchor, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Spinner from '../../../ui/Spinner'
 import { useNavigate } from 'react-router-dom'
+import { BACKEND_URL } from '../../../../../config'
 
 function CreateButton() {
 
@@ -21,7 +22,7 @@ function CreateButton() {
     const onCreate = async () => {
         setLoading(true)
         try {
-            const response = await axios.post('http://localhost:3000/api/v1/organizer/create-event',
+            const response = await axios.post(`${BACKEND_URL}/api/v1/organizer/create-event`,
                 {
                     eventName: event.eventName,
                     eventType: event.eventType,

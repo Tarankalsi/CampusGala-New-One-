@@ -1,6 +1,7 @@
 import React from 'react'
 import AdminNavbar from '../../components/general/admin/AdminNavbar'
 import TableHeading from '../../components/general/admin/TableHeading'
+import { BACKEND_URL } from '../../../config';
 
 function RejectedApplcation() {
     const [applications, setApplications] = useRecoilState(applicationAtom)
@@ -16,7 +17,7 @@ function RejectedApplcation() {
 
     const fetchApplication = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/admin/event-application/applications', {
+        const response = await axios.get(`${BACKEND_URL}/api/v1/admin/event-application/applications`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
           },

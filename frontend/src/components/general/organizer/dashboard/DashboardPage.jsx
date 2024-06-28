@@ -18,7 +18,7 @@ function DashboardPage() {
     const generateCode = async () => {
         setLoading(true)
         try {
-            const response = await axios.post('http://localhost:3000/api/v1/organizer/generate-event-code', {}, {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/organizer/generate-event-code`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('organizerToken')}`
                 }

@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil'
 import { otpAtom } from '../../store/atoms/userAtom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { BACKEND_URL } from '../../../config'
 
 
 function LoginOtpVerification() {
@@ -52,7 +53,7 @@ function LoginOtpVerification() {
         
             console.log(otp)
 
-            const response = await axios.post('http://localhost:3000/api/v1/user/otp-verification', {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/user/otp-verification`, {
                 otp: otp
             }, {
                 headers: {

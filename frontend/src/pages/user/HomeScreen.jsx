@@ -12,6 +12,7 @@ import axios from 'axios'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { eventsAtom } from '../../store/atoms/userAtom';
 import DynamicNavbar from '../../components/ui/DynamicNavbar';
+import { BACKEND_URL } from '../../../config';
 
 
 
@@ -36,7 +37,7 @@ function HomeScreen() {
 
                 try {
 
-                    const response = await axios.get('http://localhost:3000/api/v1/user/details', {
+                    const response = await axios.get(`${BACKEND_URL}/api/v1/user/details`, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'

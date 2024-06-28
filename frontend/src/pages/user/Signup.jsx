@@ -12,6 +12,7 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { firstNameAtom, lastNameAtom, mobileNumberAtom, passwordAtom } from '../../store/atoms/userAtom'
+import { BACKEND_URL } from '../../../config'
 
 
 function Signup() {
@@ -45,7 +46,7 @@ function Signup() {
                 return;
             }
 
-            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/user/signup`, {
                 firstName: firstName,
                 lastName: lastName,
                 mobileNumber: mobileNumber,

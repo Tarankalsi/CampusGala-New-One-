@@ -3,6 +3,7 @@ import DynamicNavbar from '../../components/ui/DynamicNavbar'
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import Event from '../../components/general/eventpage/Event';
+import { BACKEND_URL } from '../../../config';
 
 function EventPage() {
 
@@ -19,7 +20,7 @@ function EventPage() {
 
                 try {
 
-                    const response = await axios.get('http://localhost:3000/api/v1/user/details', {
+                    const response = await axios.get(`${BACKEND_URL}/api/v1/user/details`, {
                         headers: {
                             'Authorization': `Bearer ${token}`
 
