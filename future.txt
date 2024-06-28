@@ -1,8 +1,0 @@
-// Hash the otp before storing in the database
-// wants to add timestamp expiration of otp
-// wants to add limited request to verify the otp 
-
-
-//ADMIN
--- Only Admin can sign up the another admin user
--- Admin Otp verification will be added from the mobileNumber
