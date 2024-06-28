@@ -68,7 +68,7 @@ function HomeScreen() {
         setLoading(true)
         try {
             const fetchEvents = async () => {
-                const eventResponse = await axios.get('http://localhost:3000/api/v1/user/events')
+                const eventResponse = await axios.get(`${BACKEND_URL}/api/v1/user/events`)
                 setEvents(eventResponse.data.events)
             }
             fetchEvents()
