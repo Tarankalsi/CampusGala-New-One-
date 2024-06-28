@@ -7,6 +7,7 @@ import { capitalizeFirstLetters } from '../../../utils/strOperations';
 import { formatDate } from '../../../utils/formatDate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons'
+import { BACKEND_URL } from '../../../../config';
 
 function Event() {
 
@@ -19,7 +20,7 @@ function Event() {
         const fetchEvent = async () => {
 
             try {
-                const response = await axios.get(`http://localhost:3000/api/v1/user/events/${eventId}`)
+                const response = await axios.get(`${BACKEND_URL}/api/v1/user/events/${eventId}`)
 
                 setEvent(response.data.event)
                 console.log(response.data.event)
